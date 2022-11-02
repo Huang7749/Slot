@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn {
+            position: absolute;
+            top: 155px;
+            left: 385px;
+            background-color: #03a9f4;
+            border-radius: 8px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .btn:active{
+            transform: scale(1);
+            box-shadow: inset 0 0 10px 1px rgba(0,0,0,.2);
+        }
+        .test1{
+            position: absolute;
+            background-color: #ccc;
+            text-align:center;
+            width:200px;
+            line-height:50px;
+            border:2px green solid;
+            margin-right:10px;
+            padding:40px;
+            /* float:left; */
+            
+        }
+        .test2{
+            position: absolute;
+            left: 300px;
+            background-color: #ccc;
+            text-align:center;
+            width:200px;
+            line-height:50px;
+            border:2px green solid;
+            margin-right:10px;
+            padding:40px;
+            /* float:left; */
+        }
+        .test3{
+            position: absolute;
+            left: 590px;
+            background-color: #ccc;
+            text-align:center;
+            width:200px;
+            line-height:50px;
+            border:2px green solid;
+            padding:40px;
+            /* float:left; */
+        }
+        .test4{
+            position: absolute;
+            top: 155px;
+            left: 30px;
+            background-color: rgb(186, 128, 211);
+            width:200px;
+            height:50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="test1"></div>
+    <div class="test2"></div>
+    <div class="test3"></div>
+
+    <script>
+        let items=['紅酒','葡萄酒','威士忌','啤酒','清酒'];
+        // let itemsImg=[
+
+        // ];
+        function randomKey() {
+            return Math.floor(Math.random()*items.length);
+        }
+
+        let result=[];
+        function runResult() {
+        result=[];
+        for (let i = 0; i < 3; i++) {
+            let key = randomKey();
+            result[i]=items[key];
+        }
+        }
+
+        function checkResult() {
+        // return result.every((value)=>value===result[0]);
+        let count =1;
+        for (let i = 1; i < result.length; i++) {
+            if (result[i-1]===result[i]) count++;
+        }
+        if (count===result.length) {
+            return true;
+        }else{
+            return false;
+        }
+        }
+        //結果顯示到格子中
+        function creatEl() {
+            document.querySelector('.test1').innerText='';
+            document.querySelector('.test2').innerText='';
+            document.querySelector('.test3').innerText='';
+            let el = document.createElement('div');
+            document.querySelector('.test1').appendChild(el);
+            el.innerText=result[0];
+            let el2 = document.createElement('div');
+            document.querySelector('.test2').appendChild(el2);
+            el2.innerText=result[1];
+            let el3 = document.createElement('div');
+            document.querySelector('.test3').appendChild(el3);
+            el3.innerText=result[2];
+        }
+        //勝負判定
+        function finalCheak() {
+            let elfinal = document.createElement('div');
+            elfinal.classList.add('test4')
+            document.body.appendChild(elfinal);
+            if (result[0]===result[1]&&result[1]===result[2]) {
+                elfinal.innerText='贏!';
+            }else{
+                elfinal.innerText='輸!'; 
+            }
+        }
+        
+        //按鈕
+        let elbtn = document.createElement('div');
+        elbtn.classList.add('btn');
+        elbtn.innerText='開始抽!';
+        document.body.appendChild(elbtn);
+
+        //按鈕監聽
+        elbtn.addEventListener('click', () => {
+        checkResult();
+        runResult();
+        creatEl();
+        finalCheak();
+        console.log(result);
+        });
+
+        
+    </script>
+</body>
+</html>
